@@ -76,7 +76,7 @@
 							<span>{item.quantity}</span>
 							<button type="button" class="btn btn-md variant-filled" on:click={() => onAddToQueue(item)}>&plus;
 							</button>
-							<button type="button" class="btn btn-md variant-filled" on:click={() => onRemoveAllFromQueue(item)}>
+							<button type="button" class="btn btn-md variant-ghost-surface" on:click={() => onRemoveAllFromQueue(item)}>
 								Remove
 							</button>
 						</div>
