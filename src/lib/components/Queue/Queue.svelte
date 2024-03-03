@@ -77,7 +77,7 @@
 								type="number"
 								class="input input-md w-16 text-right [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
 								value={item.quantity}
-								on:keyup={(event) => onAddToQueue(item, event.target.value)}
+								on:keyup={(event) => onAddToQueue(item, parseInt(event.target.value))}
 							/>
 							<button type="button" class="btn btn-md variant-filled" on:click={() => onAddToQueue(item)}>&plus;
 							</button>
