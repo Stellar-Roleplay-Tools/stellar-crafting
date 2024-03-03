@@ -21,12 +21,14 @@ export const mapIngredients = (
 		ingredients.map((ingredientRecord) => [
 			ingredientRecord.id,
 			{
-				id:      ingredientRecord.id,
-				name:    ingredientRecord.name,
-				price:   ingredientRecord.price,
-				recipes: ingredientToRecipes
-									 .filter(ingredientToRecipe => ingredientToRecipe.ingredient === ingredientRecord.id)
-									 .map(ingredientToRecipe => ingredientToRecipe.recipe)
+				id:          ingredientRecord.id,
+				name:        ingredientRecord.name,
+				price:       ingredientRecord.price,
+				description: ingredientRecord.description,
+				source:      ingredientRecord.source,
+				recipes:     ingredientToRecipes
+											 .filter(ingredientToRecipe => ingredientToRecipe.ingredient === ingredientRecord.id)
+											 .map(ingredientToRecipe => ingredientToRecipe.recipe)
 			}
 		])
 	);
@@ -39,22 +41,22 @@ export const mapRecipes = (
 		recipes
 			.sort((a, b) => a.level_learned - b.level_learned)
 			.map(recipe => [
-			recipe.id,
-			{
-				id:           recipe.id,
-				name:         recipe.name,
-				yield:        recipe.yield,
-				ingredientId: recipe.item,
-				craftingTime: recipe.crafting_time,
-				levelLearned: recipe.level_learned,
-				successRate:  recipe.success_rate,
-				benches:      recipe.benches,
-				ingredients:  ingredientToRecipes
-												.filter(ingredientToRecipe => ingredientToRecipe.recipe === recipe.id)
-												.map(ingredientToRecipe => ({
-													id:       ingredientToRecipe.ingredient,
-													quantity: ingredientToRecipe.quantity
-												}))
-			}
-		])
+				recipe.id,
+				{
+					id:           recipe.id,
+					name:         recipe.name,
+					yield:        recipe.yield,
+					ingredientId: recipe.item,
+					craftingTime: recipe.crafting_time,
+					levelLearned: recipe.level_learned,
+					successRate:  recipe.success_rate,
+					benches:      recipe.benches,
+					ingredients:  ingredientToRecipes
+													.filter(ingredientToRecipe => ingredientToRecipe.recipe === recipe.id)
+													.map(ingredientToRecipe => ({
+														id:       ingredientToRecipe.ingredient,
+														quantity: ingredientToRecipe.quantity
+													}))
+				}
+			])
 	);

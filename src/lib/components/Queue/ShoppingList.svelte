@@ -6,6 +6,7 @@
 	import FaChevronUp from 'svelte-icons/fa/FaChevronUp.svelte';
 	import { AppRailTile, getDrawerStore } from '@skeletonlabs/skeleton';
 
+
 	export let items: QueueItem[];
 
 	let drawerStore = getDrawerStore();
@@ -17,11 +18,18 @@
 	</div>
 
 	{#if items.length > 0}
-		<ul class="flex-grow px-4 py-2 leading-10">
-			{#each getIngredientsFromQueue(items, $page.data.recipes, $page.data.ingredients) as ingredient}
-				<li>{ingredient.name} x {ingredient.quantity}</li>
-			{/each}
-		</ul>
+		<div class="table-container flex-grow px-4 py-2 leading-10">
+			<table class="table table-compact table-hover">
+				<tbody>
+					{#each getIngredientsFromQueue(items, $page.data.recipes, $page.data.ingredients) as ingredient}
+						<tr>
+							<td class="table-cell-fit text-right">{ingredient.quantity}</td>
+							<td>{ingredient.name}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
 	{/if}
 
 	<div class="flex justify-end">

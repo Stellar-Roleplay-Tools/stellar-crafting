@@ -6,7 +6,9 @@
   import { slide } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import { queue } from '$lib/stores/queue';
-  import { getToastStore } from '@skeletonlabs/skeleton';
+  import { getToastStore, type PopupSettings } from '@skeletonlabs/skeleton';
+  import { popup } from '@skeletonlabs/skeleton';
+  import { appStore } from '$lib/stores/app';
 
   export let recipe: Recipe;
 
@@ -23,6 +25,19 @@
     }
 
     toastStore.trigger({ message: `${recipe.name} added to queue` });
+  };
+
+  const popupIngredient: PopupSettings = {
+    // Represents the type of event that opens/closed the popup
+    event: 'hover',
+    // Matches the data-popup value on your popup element
+    target: 'popupIngredient',
+    // Defines which side of your trigger the popup will appear
+    placement: 'bottom',
+  };
+
+  const setIngredientPopup = (ingredientId: string) => {
+    $appStore.ingredientPopup = $page.data.ingredients.get(ingredientId);
   };
 </script>
 
@@ -46,8 +61,17 @@
       <div class="grid grid-cols-6">
         {#each recipe.ingredients as ingredient}
           <span class="text-right">{ingredient.quantity}</span>
-          <span class="col-span-5 text-left">x&nbsp;
-            <span class="font-bold">{$page.data.ingredients.get(ingredient.id)?.name}</span>
+          <span class="col-span-5 text-left">
+            <span>x&nbsp;</span>
+            <span
+              class="font-bold border-b-2 border-dashed cursor-pointer pointer-events-auto"
+              on:mouseover={setIngredientPopup.bind(null, ingredient.id)}
+              on:focus={() => {}}
+              role="tooltip"
+              use:popup={popupIngredient}
+            >
+              {$page.data.ingredients.get(ingredient.id)?.name}
+            </span>
           </span>
         {/each}
       </div>

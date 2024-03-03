@@ -11,19 +11,19 @@
 
 	let drawerStore = getDrawerStore();
 
-	const onAddToQueue = (item) => {
+	const onAddToQueue = (item: QueueItem, quantity?: number) => {
 		$queue.items = $queue.items.map(q => {
 			if (q.recipe.id === item.recipe.id) {
 				return {
 					...q,
-					quantity: q.quantity + 1
+					quantity: quantity ?? q.quantity + 1
 				};
 			}
 			return q;
 		});
 	};
 
-	const onRemoveFromQueue = (item) => {
+	const onRemoveFromQueue = (item: QueueItem, quantity?: number) => {
 		if (item.quantity === 1) {
 			$queue.items = $queue.items.filter(q => q.recipe.id !== item.recipe.id);
 		} else {
@@ -31,7 +31,7 @@
 				if (q.recipe.id === item.recipe.id) {
 					return {
 						...q,
-						quantity: q.quantity - 1
+						quantity: quantity ?? q.quantity - 1
 					};
 				}
 				return q;
@@ -39,7 +39,7 @@
 		}
 	};
 
-	const onRemoveAllFromQueue = (item) => {
+	const onRemoveAllFromQueue = (item: QueueItem) => {
 		$queue.items = $queue.items.filter(q => q.recipe.id !== item.recipe.id);
 	};
 
@@ -73,7 +73,12 @@
 						<div class="flex items-center gap-2">
 							<button type="button" class="btn btn-md variant-filled" on:click={() => onRemoveFromQueue(item)}>&minus;
 							</button>
-							<span>{item.quantity}</span>
+							<input
+								type="number"
+								class="input input-md w-16 text-right [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+								value={item.quantity}
+								on:keyup={(event) => onAddToQueue(item, event.target.value)}
+							/>
 							<button type="button" class="btn btn-md variant-filled" on:click={() => onAddToQueue(item)}>&plus;
 							</button>
 							<button type="button" class="btn btn-md variant-ghost-surface" on:click={() => onRemoveAllFromQueue(item)}>

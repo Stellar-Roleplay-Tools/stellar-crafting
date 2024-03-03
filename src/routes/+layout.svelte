@@ -6,6 +6,7 @@
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { initializeStores } from '@skeletonlabs/skeleton';
 	import DrawerContent from './DrawerContent.svelte';
+	import IngredientCard from '$lib/components/IngredientCard.svelte';
 
 	// Floating UI for Popups
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
@@ -30,4 +31,5 @@
 	</svelte:fragment>
 
 	<slot />
+	<IngredientCard />
 </AppShell>

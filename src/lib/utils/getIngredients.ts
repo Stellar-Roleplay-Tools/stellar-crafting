@@ -12,18 +12,32 @@ const getIngredientsFromRecipe = (
 	recipeList: Recipe[],
 	ingredientsList: Map<string, Ingredient>
 ): IngredientWithQuantity[] => {
-	const ingredients = recipe.ingredients.map(ingredient => {
-		const foundRecipe = recipeList.find(r => r.ingredientId === ingredient.id);
+	// Leaving out recursive call for now until I can make a better breakdown of all the materials
+	// Maybe by rendering a node chain of all the ingredients
+	// const ingredients = recipe.ingredients.map(ingredient => {
+	// 	const foundRecipe = recipeList.find(r => r.ingredientId === ingredient.id);
+	//
+	// 	if (foundRecipe) {
+	// 		return getIngredientsFromRecipe(foundRecipe, Math.round(ingredient.quantity * quantity / foundRecipe.yield), recipeList, ingredientsList);
+	// 	} else {
+	// 		return [{ ...ingredientsList.get(ingredient.id), quantity: ingredient.quantity * quantity }];
+	// 	}
+	// }).flat(Infinity);
 
-		if (foundRecipe) {
-			return getIngredientsFromRecipe(foundRecipe, Math.round(ingredient.quantity * quantity / foundRecipe.yield), recipeList, ingredientsList);
-		} else {
-			return [{ ...ingredientsList.get(ingredient.id), quantity: ingredient.quantity * quantity }];
+	const ingredients = recipe.ingredients.map<IngredientWithQuantity>(recipeIngredient => {
+		const ingredient = ingredientsList.get(recipeIngredient.id);
+		if (!ingredient) {
+			throw new Error(`Ingredient with id ${recipeIngredient.id} not found`);
 		}
-	}).flat(Infinity);
 
-	return ingredients.reduce((acc, ingredient) => {
-		const existingIngredient: Ingredient = acc.find(i => i.id === ingredient.id);
+		return {
+			...ingredientsList.get(recipeIngredient.id),
+			quantity: recipeIngredient.quantity * quantity,
+		};
+	});
+
+	return ingredients.reduce((acc: IngredientWithQuantity[], ingredient: IngredientWithQuantity) => {
+		const existingIngredient = acc.find(i => i.id === ingredient.id);
 
 		if (existingIngredient) {
 			existingIngredient.quantity = Math.ceil(existingIngredient.quantity + ingredient.quantity);
