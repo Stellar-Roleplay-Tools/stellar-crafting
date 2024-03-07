@@ -7,12 +7,25 @@
 	import { initializeStores } from '@skeletonlabs/skeleton';
 	import DrawerContent from './DrawerContent.svelte';
 	import IngredientCard from '$lib/components/IngredientCard.svelte';
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import type { Bench } from '$lib/models/bench';
 
 	// Floating UI for Popups
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	// Initialize the stores for Skeleton UI
 	initializeStores();
+
+	// Set the theme based on the currently set crafting bench
+	onMount(() => {
+		const params = new URLSearchParams($page.url.searchParams.toString());
+
+		const benchSlug = params.get('bench') || '';
+		const bench = $page.data.benches.find((b: Bench) => b.slug === benchSlug);
+
+		document.body.setAttribute('data-theme', bench && bench.theme ? bench.theme : 'skeleton');
+	});
 </script>
 
 <svelte:head>

@@ -20,11 +20,19 @@
 	{#if items.length > 0}
 		<div class="table-container flex-grow px-4 py-2 leading-10">
 			<table class="table table-compact table-hover">
+				<thead>
+					<tr>
+						<th class="table-cell-fit text-right">Qty</th>
+						<th>Ingredient</th>
+						<th>Source</th>
+					</tr>
+				</thead>
 				<tbody>
 					{#each getIngredientsFromQueue(items, $page.data.recipes, $page.data.ingredients) as ingredient}
 						<tr>
 							<td class="table-cell-fit text-right">{ingredient.quantity}</td>
 							<td>{ingredient.name}</td>
+							<td>{@html ingredient.source}</td>
 						</tr>
 					{/each}
 				</tbody>

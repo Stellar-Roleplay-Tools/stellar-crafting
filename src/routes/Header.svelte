@@ -22,7 +22,7 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="trail">
-		<a class="btn btn-sm variant-ghost-surface" href="https://github.com/Stellar-Roleplay-Tools/stellar-crafting" target="_blank" rel="noreferrer">
+		<a class="btn btn-sm variant-ghost-surface" href="https://github.com/T-Fei-Technologies/stellar-crafting" target="_blank" rel="noreferrer">
 			GitHub
 		</a>
 	</svelte:fragment>

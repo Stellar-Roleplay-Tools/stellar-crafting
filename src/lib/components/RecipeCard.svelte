@@ -1,14 +1,12 @@
 <script lang="ts">
 	import type { Recipe } from '$lib/models/recipe';
-  import { page } from '$app/stores';
   import { getCraftingTime } from '$lib/utils/getCraftingTime';
   import FaStopwatch from 'svelte-icons/fa/FaStopwatch.svelte';
   import { slide } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import { queue } from '$lib/stores/queue';
-  import { getToastStore, type PopupSettings } from '@skeletonlabs/skeleton';
-  import { popup } from '@skeletonlabs/skeleton';
-  import { appStore } from '$lib/stores/app';
+  import { getToastStore } from '@skeletonlabs/skeleton';
+  import IngredientWithPopup from '$lib/components/IngredientWithPopup.svelte';
 
   export let recipe: Recipe;
 
@@ -25,19 +23,6 @@
     }
 
     toastStore.trigger({ message: `${recipe.name} added to queue` });
-  };
-
-  const popupIngredient: PopupSettings = {
-    // Represents the type of event that opens/closed the popup
-    event: 'hover',
-    // Matches the data-popup value on your popup element
-    target: 'popupIngredient',
-    // Defines which side of your trigger the popup will appear
-    placement: 'bottom',
-  };
-
-  const setIngredientPopup = (ingredientId: string) => {
-    $appStore.ingredientPopup = $page.data.ingredients.get(ingredientId);
   };
 </script>
 
@@ -63,15 +48,7 @@
           <span class="text-right">{ingredient.quantity}</span>
           <span class="col-span-5 text-left">
             <span>x&nbsp;</span>
-            <span
-              class="font-bold border-b-2 border-dashed cursor-pointer pointer-events-auto"
-              on:mouseover={setIngredientPopup.bind(null, ingredient.id)}
-              on:focus={() => {}}
-              role="tooltip"
-              use:popup={popupIngredient}
-            >
-              {$page.data.ingredients.get(ingredient.id)?.name}
-            </span>
+            <IngredientWithPopup ingredientId={ingredient.id} />
           </span>
         {/each}
       </div>

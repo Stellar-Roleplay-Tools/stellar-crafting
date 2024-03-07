@@ -6,7 +6,7 @@
 
 <div data-popup="popupIngredient">
 	<div
-		class="card variant-filled-surface flex flex-col w-72 shadow-xl pointer-events-none"
+		class="card variant-filled-surface flex flex-col w-72 shadow-xl pointer-events-none z-50"
 		transition:fade={{ duration: 500, easing: quintOut }}
 	>
 		{#if !$appStore.ingredientPopup}

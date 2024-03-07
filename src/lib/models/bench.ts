@@ -5,5 +5,6 @@ export type Bench = {
   slug: string;
   image: string;
   imageUrl: string;
+  theme: string;
   list_order: number;
 };

@@ -68,7 +68,7 @@
 		{:else}
 			<div transition:slide>
 				{#each items as item}
-					<div class="flex justify-between items-center p-2" transition:slide>
+					<div class="flex flex-col lg:flex-row gap-4 justify-between items-center p-2" transition:slide>
 						<span>{item.recipe.name}</span>
 						<div class="flex items-center gap-2">
 							<button type="button" class="btn btn-md variant-filled" on:click={() => onRemoveFromQueue(item)}>&minus;

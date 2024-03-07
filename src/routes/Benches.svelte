@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import type { Bench } from '$lib/models/bench';
 
 
-	let currentBench = '';
+	const params = new URLSearchParams($page.url.searchParams.toString());
+
+	let currentBench = params.get('bench') || '';
 
 	const onSetBench = () =>{
-		const params = new URLSearchParams($page.url.searchParams.toString());
-
 		if (!!currentBench) {
 			params.set('bench', currentBench);
 		} else {
@@ -15,6 +16,10 @@
 		}
 
 		goto(`?${params.toString()}`);
+
+		// Set bench theme
+		const bench = $page.data.benches.find((b: Bench) => b.slug === currentBench);
+		document.body.setAttribute('data-theme', bench && bench.theme ? bench.theme : 'skeleton');
 	}
 </script>
 
