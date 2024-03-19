@@ -2,25 +2,29 @@
 	import { page } from '$app/stores';
 	import RecipeCard from '$lib/components/RecipeCard.svelte';
 	import type { Recipe } from '$lib/models/recipe';
+	import { filterByLevelRange } from '$lib/utils/filterByLevelRange';
 
 
 	$:getRecipes = () => {
-		const params = new URLSearchParams($page.url.searchParams.toString());
-		const slug  = params.get('bench');
+		const params            = new URLSearchParams($page.url.searchParams.toString());
+		const slug              = params.get('bench');
 		const recipes: Recipe[] = Array.from($page.data.recipes.values());
+		const minLevel          = parseInt(params.get('minLevel') ?? '');
+		const maxLevel          = parseInt(params.get('maxLevel') ?? '');
 
 		if (!slug) {
-			return Array.from($page.data.recipes.values());
+			return filterByLevelRange(minLevel, maxLevel, Array.from($page.data.recipes.values()));
 		}
 
 		if (!recipes) {
 			return [];
 		}
 
-		return (recipes).filter(recipe => {
-
+		return filterByLevelRange(
+			minLevel,
+			maxLevel,
+			(recipes).filter(recipe => {
 				if (params.has('bench')) {
-
 					const bench = $page.data.benches.find(bench => bench.slug === slug);
 
 					if (bench) {
@@ -29,8 +33,9 @@
 						return true;
 					}
 				}
-			});
-	}
+			})
+		);
+	};
 </script>
 
 

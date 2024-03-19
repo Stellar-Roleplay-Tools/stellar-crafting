@@ -8,7 +8,7 @@ type Queue = {
 export type QueueItem = {
 	recipe: Recipe;
 	quantity: number;
-}
+};
 
 export const queue = writable<Queue>({
 	items: [],
