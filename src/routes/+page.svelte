@@ -44,6 +44,9 @@
 		<h2 class="h2">Recipes</h2>
 
 		<div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+			{#if getRecipes().length === 0}
+				<p class="text-gray-500">No recipes found</p>
+			{/if}
 			{#each getRecipes() as recipe}
 				<RecipeCard recipe={recipe} />
 			{/each}
