@@ -3,12 +3,10 @@
 	import { goto } from '$app/navigation';
 	import type { Bench } from '$lib/models/bench';
 
-
-	const params = new URLSearchParams($page.url.searchParams.toString());
-
-	let currentBench = params.get('bench') || '';
+	let currentBench = $page.url.searchParams.get('bench') || '';
 
 	const onSetBench = () =>{
+		const params = new URLSearchParams($page.url.search);
 		if (!!currentBench) {
 			params.set('bench', currentBench);
 		} else {

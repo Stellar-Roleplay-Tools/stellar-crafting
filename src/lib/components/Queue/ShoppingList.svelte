@@ -12,7 +12,7 @@
 	let drawerStore = getDrawerStore();
 </script>
 
-<div class="flex flex-col lg:border-l-2 lg:border-l-gray-700">
+<div class="flex flex-col justify-between lg:border-l-2 lg:border-l-gray-700">
 	<div class="flex justify-between items-center p-2 px-4 h-14">
 		<h2 class="h2">Shopping List</h2>
 	</div>

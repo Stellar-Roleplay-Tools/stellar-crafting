@@ -9,8 +9,8 @@
 		const params            = new URLSearchParams($page.url.searchParams.toString());
 		const slug              = params.get('bench');
 		const recipes: Recipe[] = Array.from($page.data.recipes.values());
-		const minLevel          = parseInt(params.get('minLevel') ?? '');
-		const maxLevel          = parseInt(params.get('maxLevel') ?? '');
+		const minLevel          = parseInt(params.get('minLevel') ?? '0');
+		const maxLevel          = parseInt(params.get('maxLevel') ?? '100');
 
 		if (!slug) {
 			return filterByLevelRange(minLevel, maxLevel, Array.from($page.data.recipes.values()));
