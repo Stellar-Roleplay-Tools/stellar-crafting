@@ -26,6 +26,7 @@ Here is the tech I used at-a-glance
 - TailwindCSS 3.4.1
 - SkeletonCSS 2.8.0
 - Svelte Icons 2.1.0
+- DB: Pocketbase hosted on Pockethost.io
 
 ### Running Locally
 
